@@ -1,0 +1,9 @@
+2026/08/07 20:29:55 order-service POST 200 /order
+2026/08/07 22:00:49 order-service POST 200 /order
+2026/08/07 22:18:37 order-service POST 200 /order
+2026/08/07 22:29:28 order-service POST 200 /order
+2026/08/07 22:30:14 payment-service POST 200 /charge
+2026/08/07 22:31:12 inventory-service POST 200 /stock
+2026/08/07 22:31:48 inventory-service POST 200 /stock
+2026/08/07 22:31:50 payment-service POST 200 /charge
+2026/08/07 22:31:51 order-service POST 200 /order
