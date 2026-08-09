@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -25,7 +24,7 @@ func main() {
 
 	mux.HandleFunc("POST /log", handleLogs)
 
-	fmt.Print("Server is running on :8888\n\n")
+	fmt.Print("LoggingService is running on :8888\n\n")
 
 	if err := http.ListenAndServe(":8888", mux); err != nil {
 		fmt.Println(err)
@@ -34,7 +33,7 @@ func main() {
 
 func handleLogs(w http.ResponseWriter, r *http.Request) {
 	if err := os.MkdirAll(filepath.Dir(LogPath), 0700); err != nil {
-		log.Fatalf("Failed to create directories: %v", err)
+		http.Error(w, "Failed to create directories", http.StatusInternalServerError)
 	}
 	file, err := os.OpenFile(LogPath, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -71,7 +70,7 @@ func handleLogs(w http.ResponseWriter, r *http.Request) {
 
 	_, err = file.WriteString(logstring)
 	if err != nil {
-		log.Fatalf("Failed to write data: %v", err)
+		http.Error(w, "Failed to write data", http.StatusInternalServerError)
 	}
 
 	fmt.Println("Data successfully logged!")
