@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dds-labs/internal/sidecar"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -10,14 +11,10 @@ import (
 	"time"
 )
 
-const LogPath = "logs/2026/app.log"
+// To Do:
+// prevent sLOW DISk i/o from blocking sidecar request handlers.
 
-type LogEvent struct {
-	Service    string `json:"service"`
-	Method     string `json:"method"`
-	Path       string `json:"path"`
-	StatusCode int    `json:"statuscode"`
-}
+const LogPath = "logs/2026/app2.log"
 
 func main() {
 	mux := http.NewServeMux()
@@ -49,7 +46,7 @@ func handleLogs(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var result LogEvent
+	var result sidecar.LogEvent
 	if err := json.Unmarshal(body, &result); err != nil {
 		// imrpovement in error ?
 		http.Error(w, "failed to parse log event", http.StatusInternalServerError)
@@ -60,8 +57,9 @@ func handleLogs(w http.ResponseWriter, r *http.Request) {
 	layout := "2006/01/02 15:04:05"
 	formattedTimeString := currentTime.Format(layout)
 
-	logstring := fmt.Sprintf("%s %s %s %d %s\n",
+	logstring := fmt.Sprintf("%s workerId: %d %s %s %d %s\n",
 		formattedTimeString,
+		result.WorkerId,
 		result.Service,
 		result.Method,
 		result.StatusCode,

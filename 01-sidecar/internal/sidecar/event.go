@@ -5,4 +5,5 @@ type LogEvent struct {
 	Method     string `json:"method"`
 	Path       string `json:"path"`
 	StatusCode int    `json:"statuscode"`
+	WorkerId   int    `json:"worker_id"`
 }
