@@ -6,21 +6,21 @@ Hands-on implementation of the **Sidecar Pattern** from *Designing Distributed S
 
 ```text
 ┌─────────────────────────┐
-│ Inventory               │
+│     Inventory           │
 │        │                │
 │        ▼                │
 │ inventory-sidecar       │
 └─────────────────────────┘
 
 ┌─────────────────────────┐
-│ Order                   │
+│      Order              │
 │        │                │
 │        ▼                │
 │ order-sidecar           │
 └─────────────────────────┘
 
 ┌─────────────────────────┐
-│ Payment                 │
+│      Payment            │
 │        │                │
 │        ▼                │
 │ payment-sidecar         │
