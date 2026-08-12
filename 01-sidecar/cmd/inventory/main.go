@@ -23,7 +23,7 @@ type ServerData struct {
 }
 
 func main() {
-	sidecarClient := sidecar.NewClient("http://127.0.0.1:8888")
+	sidecarClient := sidecar.NewClient("http://sidecar:8888")
 
 	logs := make(chan sidecar.LogEvent, 100)
 
@@ -32,6 +32,7 @@ func main() {
 	for i := 1; i <= 5; i++ {
 		id := i
 
+		// Async Logging.
 		wg.Go(func() {
 			worker(id, logs, sidecarClient)
 		})
@@ -136,7 +137,6 @@ func handleStock(
 		// simulates long running request -> try terminating the server
 		// 10 sec for Shutdown context to expire and shutdown ( dont wait longer than this context allows )
 		// time.Sleep(10 * time.Second)
-		time.Sleep(5 * time.Second)
 
 		var result ServerData
 

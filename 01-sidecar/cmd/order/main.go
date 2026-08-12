@@ -22,7 +22,7 @@ type ServerData struct {
 }
 
 func main() {
-	sidecarClient := sidecar.NewClient("http://127.0.0.1:8888")
+	sidecarClient := sidecar.NewClient("http://sidecar:8888")
 
 	logs := make(chan sidecar.LogEvent, 100)
 

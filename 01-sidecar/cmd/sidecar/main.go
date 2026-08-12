@@ -14,7 +14,7 @@ import (
 // To Do:
 // prevent sLOW DISk i/o from blocking sidecar request handlers.
 
-const LogPath = "logs/2026/app2.log"
+const LogPath = "logs/2026/app.log"
 
 func main() {
 	mux := http.NewServeMux()
