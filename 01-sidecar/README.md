@@ -31,17 +31,18 @@ Each service runs independently and sends logging events to a dedicated Sidecar 
 
 ## What I Learned
 
-* Sidecar pattern and separation of core/non-core functionality
+* Sidecar separation from core business logic
 * Shared Sidecar client
-* Asynchronous logging
-* Worker pool with buffered channels
-* Backpressure and bounded concurrency
+* Async logging
+* Worker pool
+* Buffered channel / backpressure
 * Graceful shutdown
-* `WaitGroup` for draining background workers
-* Docker container networking
-* Docker Compose service discovery
-* `localhost` vs container-to-container networking
-* Bind mounts for persistent logs
+* Worker draining with WaitGroup
+* Dockerized services
+* Container networking
+* Per-service Sidecar instances
+* Configuration through environment variables
+* Persistent log storage
 
 ## Run
 
@@ -67,7 +68,7 @@ Logs are persisted to:
 Inside a container:
 
 ```text
-127.0.0.1 → current container
+127.0.0.1 → current container (container itself :) )
 sidecar    → Sidecar container
 ```
 
