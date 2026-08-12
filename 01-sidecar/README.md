@@ -5,13 +5,26 @@ Hands-on implementation of the **Sidecar Pattern** from *Designing Distributed S
 ## Architecture
 
 ```text
-┌──────────────┐
-│ Order        │──┐
-├──────────────┤  │
-│ Payment      │──┼──► Sidecar ──► Logs
-├──────────────┤  │
-│ Inventory    │──┘
-└──────────────┘
+┌─────────────────────────┐
+│ Inventory               │
+│        │                │
+│        ▼                │
+│ inventory-sidecar       │
+└─────────────────────────┘
+
+┌─────────────────────────┐
+│ Order                   │
+│        │                │
+│        ▼                │
+│ order-sidecar           │
+└─────────────────────────┘
+
+┌─────────────────────────┐
+│ Payment                 │
+│        │                │
+│        ▼                │
+│ payment-sidecar         │
+└─────────────────────────┘
 ```
 
 Each service runs independently and sends logging events to a dedicated Sidecar process.

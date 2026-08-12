@@ -6,7 +6,18 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - sidecar
+      - inventory-sidecar
+
+  inventory-sidecar:
+    build:
+      context: .
+      dockerfile: ./cmd/sidecar/Dockerfile
+    ports:
+      - "8083:8888"
+    environment:
+      - LOG_PATH=logs/2026/service-inventory-log.log
+    volumes:
+        - ./data/logs:/app/logs
 
   order:
     build:
@@ -15,7 +26,18 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - sidecar
+      - order-sidecar
+
+  order-sidecar:
+    build:
+      context: .
+      dockerfile: ./cmd/sidecar/Dockerfile
+    ports:
+      - "8084:8888"
+    environment:
+      - LOG_PATH=logs/2026/service-order-log.log
+    volumes:
+        - ./data/logs:/app/logs
 
   payment:
     build:
@@ -24,13 +46,15 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - sidecar
+      - payment-sidecar
 
-  sidecar:
+  payment-sidecar:
     build:
       context: .
       dockerfile: ./cmd/sidecar/Dockerfile
     ports:
-      - "8888:8888"
+      - "8085:8888"
+    environment:
+      - LOG_PATH=logs/2026/service-payment-log.log
     volumes:
         - ./data/logs:/app/logs

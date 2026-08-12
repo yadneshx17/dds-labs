@@ -14,9 +14,16 @@ import (
 // To Do:
 // prevent sLOW DISk i/o from blocking sidecar request handlers.
 
-const LogPath = "logs/2026/app.log"
+const DefaultLogPath = "logs/2026/app.log"
+
+var LogPath string
 
 func main() {
+	LogPath = os.Getenv("LOG_PATH")
+	if LogPath == "" {
+		LogPath = DefaultLogPath
+	}
+
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("POST /log", handleLogs)

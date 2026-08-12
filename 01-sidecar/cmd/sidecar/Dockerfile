@@ -18,4 +18,7 @@ COPY --from=builder /app/sidecar .
 
 EXPOSE 8888
 
+# default
+ENV LOG_PATH="logs/2026/app.log"
+
 CMD ["./sidecar"]

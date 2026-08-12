@@ -1,0 +1,36 @@
+services:
+  inventory:
+    build:
+      context: .
+      dockerfile: ./cmd/inventory/Dockerfile
+    ports:
+      - "8082:8082"
+    depends_on:
+      - sidecar
+
+  order:
+    build:
+      context: .
+      dockerfile: ./cmd/order/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - sidecar
+
+  payment:
+    build:
+      context: .
+      dockerfile: ./cmd/payment/Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - sidecar
+
+  sidecar:
+    build:
+      context: .
+      dockerfile: ./cmd/sidecar/Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+        - ./data/logs:/app/logs
